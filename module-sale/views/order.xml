@@ -1,0 +1,141 @@
+<odoo>
+  <data>
+    <!-- Define the list view for sale.invoice -->
+    <record model="ir.ui.view" id="view_sale_invoice_tree">
+      <field name="name">Sale Invoice List</field>
+      <field name="model">sale.invoice</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="invoice_code"/>
+          <field name="creation_date"/>
+          <field name="customer_name"/>
+          <field name="sale_person_name"/>
+          <field name="product_name"/>
+          <field name="total"/>
+        </tree>
+      </field>
+    </record>
+
+<!--    #define form view-->
+    <record id='invoice_form' model="ir.ui.view">
+      <field name="name">sale.invoice.form</field>
+      <field name="model">sale.invoice</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+
+              <group>
+                <field name="invoice_code"/>
+                <field name="customer_name"/>
+              </group>
+              <group>
+                <field name="creation_date"/>
+                <field name="sale_person_name"/>
+                <field name="product_name"/>
+                <field name="total"/>
+
+              </group>
+
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record id="view_team_kanban" model="ir.ui.view">
+      <field name="name">sale.invoice.kanban</field>
+      <field name="model">sale.invoice</field>
+      <field name="arch" type="xml">
+          <kanban>
+            <field name="invoice_code"/>
+          <field name="creation_date"/>
+          <field name="customer_name"/>
+          <field name="sale_person_name"/>
+          <field name="product_name"/>
+          <field name="total"/>
+            <templates>
+              <t t-name="kanban-box">
+                <div t-attf-class="oe_kanban_global_click">
+                  <div class="oe_kanban_details">
+                    <ul>
+                      <li>
+                        <field name="invoice_code"/>
+                      </li>
+                      <li>
+                        <field name="creation_date"/>
+                      </li>
+                    </ul>
+                  </div>
+
+                </div>
+              </t>
+            </templates>
+          </kanban>
+      </field>
+    </record>
+
+    <record id="view_project_task_graph" model="ir.ui.view">
+   <field name="name">project.task.graph</field>
+   <field name="model">sale.invoice</field>
+   <field name="arch" type="xml">
+       <graph string="Project Tasks">
+           <field name="sale_person_name"/>
+           <field name="total"/>
+       </graph>
+   </field>
+</record>
+
+<!-- Define the menu -->
+    <menuitem id="sale_root" name="Main sale" sequence="10"/>
+
+    <menuitem id="sale_order_root"
+              name="Orders"
+              sequence="10"
+              parent="sale_root"
+    />
+
+    <menuitem id="sale_order_order"
+              name="Orders"
+              sequence="10"
+              parent="sale_order_root"
+              action="sale_action"
+    />
+
+    <menuitem id="sale_order_quotations"
+              name="Quotations"
+              sequence="10"
+              parent="sale_order_root"
+              action="sale_action"
+    />
+
+    <menuitem id="sale_order_sale_team"
+              name="Sale teams"
+              sequence="10"
+              parent="sale_order_root"
+              action="team_action"
+    />
+
+    <menuitem id="sale_order_customer"
+              name="Customer"
+              sequence="10"
+              parent="sale_order_root"
+              action="sale_action"
+    />
+
+
+    <!-- Define the Action for the menu -->
+    <record id="sale_action" model="ir.actions.act_window">
+      <field name="name">Sale Orders</field>
+      <field name="res_model">sale.invoice</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    <record id="team_action" model="ir.actions.act_window">
+      <field name="name">Sale Teams</field>
+      <field name="res_model">sale.invoice</field>
+      <field name="view_mode">kanban,graph</field>
+    </record>
+
+  </data>
+</odoo>

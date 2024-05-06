@@ -1,0 +1,70 @@
+<odoo>
+    <data>
+
+    <!-- Define the list view for sale.invoice -->
+    <record model="ir.ui.view" id="view_sale_invoice_tree">
+      <field name="name">Sale Invoice List</field>
+      <field name="model">sale.invoice</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="invoice_code"/>
+          <field name="creation_date"/>
+          <field name="customer_name"/>
+          <field name="sale_person_name"/>
+          <field name="product_name"/>
+          <field name="total"/>
+        </tree>
+      </field>
+    </record>
+
+<!--    #define form view-->
+    <record id='invoice_form' model="ir.ui.view">
+      <field name="name">sale.invoice.form</field>
+      <field name="model">sale.invoice</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+
+              <group>
+                <field name="invoice_code"/>
+                <field name="customer_name"/>
+              </group>
+              <group>
+                <field name="creation_date"/>
+                <field name="sale_person_name"/>
+                <field name="product_name"/>
+                <field name="total"/>
+
+              </group>
+
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <menuitem id="sale_reporting"
+              name="Reporting"
+              sequence="40"
+              parent="sale_root"
+    />
+
+    <menuitem id="sale_sales"
+              name="Sales"
+              sequence="40"
+              parent="sale_reporting"
+              action="sale_action"
+    />
+
+
+
+    <!-- Define the Action for the menu -->
+    <record id="sale_action" model="ir.actions.act_window">
+      <field name="name">Sale Orders</field>
+      <field name="res_model">sale.invoice</field>
+      <field name="view_mode">tree,form</field>
+    </record>
+
+    </data>
+</odoo>
